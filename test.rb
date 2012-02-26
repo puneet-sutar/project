@@ -1,13 +1,17 @@
-require "mod1.rb"
 require "rubygems"
+require "dbi"
 require "xmlsimple"
+require "test1.rb"
+require "mysql"
+require "./atomic/atoms.rb"
+require "mod1.rb"
+include Atoms
 include Validations
 #config = XmlSimple.xml_in("./atomic/update.xml")
 #id=config['id'].first
 #id=config['param'][0]['name'][0]['content']
 
 @operators=["|",">","<",">>","<<","&&"]
-
 def read_atom_name
   $atoms={}
   fin=File.open("atom.info","r")
@@ -52,13 +56,14 @@ def create_op
 end
 
 def prepare_input (input)
-    str=input.split(":")
+str=input.split(":")
 object={}
 table=str[0]
 lhs=str[1]
 rhs=str[2]
 cond=str[3]
  #puts "rhs = #{rhs}"
+puts $object
 $object['object'].each do |obj|
 if(obj['name'][0]['value']==table)
 object=obj
@@ -96,11 +101,43 @@ object=obj
  end
  puts "str output"
  puts str
+ return str
 end
 def execute
   puts "ENTER REQUEST FILE NAME : "
-  fname=gets.chomp!
+  fname="request.xml"   #gets.chomp!
+  $input={}
   $request=XmlSimple.xml_in(fname)
+  $opname=$request['op_name'].first
+  $request['input'][0].each do |i,j|
+    $input[i]=j.first
+  end
+  $object=XmlSimple.xml_in("./objects/obj.xml")
+  $operation=XmlSimple.xml_in("./operations/#{$opname}.xml")
+  process=$operation['process'][0]['name']
+  begin
+     # connect to the MySQL server
+     dbh = DBI.connect("DBI:Mysql:project:localhost","root", "123")
+     process.each do |i|
+        input=prepare_input(i['input']);
+        str=input.join(",")
+        function=i['content'][0]
+        puts input.to_s
+        puts str.to_sym
+        send(function,input,dbh)
+     end
+     
+     
+  rescue DBI::DatabaseError => e
+     puts "An error occurred"
+     puts "Error code:    #{e.err}"
+     puts "Error message: #{e.errstr}"
+  ensure
+     # disconnect from server
+     dbh.disconnect if dbh
+  end
+  
+  #puts process
   
 end 
 
