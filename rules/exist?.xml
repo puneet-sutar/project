@@ -1,0 +1,8 @@
+<rule>
+	    <id>1</id>
+		<name type='INBUILT'>exist?</name>
+		<param num='4'> 
+			<name type='ISTREAM'>Object_Name</name>
+			<name type='VAR'>Field</name>
+		</param>
+</rule>
