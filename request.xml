@@ -5,6 +5,6 @@
 	<op_name>credit</op_name>
 	<input>
 		<id>111232345</id>
-		<amt>1000</amt>
+		<amt>-1000</amt>
 	</input>
 </request>

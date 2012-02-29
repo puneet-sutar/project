@@ -1,8 +1,7 @@
 <rule>
 	    <id>5</id>
-		<name type='INBUILT'>exist?</name>
-		<param num='4'> 
-			<name type='ISTREAM'>Object_Name</name>
+		<name type='INBUILT'>lessthen?</name>
+		<param num='2'> 
 			<name type='VAR'>LSH</name>
 			<name type='VAR'>RHS</name>
 		</param>

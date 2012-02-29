@@ -4,7 +4,6 @@ require "xmlsimple"
 input="Account:bal:bal + #amt + 10:id = #id"
 $object=XmlSimple.xml_in("./objects/obj.xml")
 $input={"id"=>"101","amt"=>"1001001"}
-
 include Validations
 str=input.split(":")
 object={}
