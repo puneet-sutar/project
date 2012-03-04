@@ -3,6 +3,6 @@
 <name>debit2</name>
 <type>operation</type>
 <process>
-<name input='Account:bal:bal - #amt:id = #id next="false"'>update</name>
+<name input='Account:bal:bal - #amt:id = #id1' next="false" type='atom'>update</name>
 </process>
 </debit2>

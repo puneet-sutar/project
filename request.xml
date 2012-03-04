@@ -4,7 +4,8 @@
 	<op_id>1</op_id>
 	<op_name>credit</op_name>
 	<input>
-		<id>111232345</id>
-		<amt>-1000</amt>
+		<id1>111232345</id1>
+		<id>221212122</id>
+		<amt>1000</amt>
 	</input>
 </request>
